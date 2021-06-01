@@ -1,0 +1,38 @@
+[package]
+name = "pg_rot13"
+version = "0.9.0"
+edition = "2018"
+description = "A PostgreSQL extension module for applying ROT13"
+license = "BlueOak-1.0.0 OR Apache-2.0"
+readme = "README.md"
+categories = ["database", "text-processing"]
+keywords = ["postgres", "postgresql", "pgx"]
+homepage = "https://github.com/timClicks/pg_rot13"
+repository = "https://github.com/timClicks/pg_rot13"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = ["pg13"]
+pg10 = ["pgx/pg10", "pgx-tests/pg10" ]
+pg11 = ["pgx/pg11", "pgx-tests/pg11" ]
+pg12 = ["pgx/pg12", "pgx-tests/pg12" ]
+pg13 = ["pgx/pg13", "pgx-tests/pg13" ]
+pg_test = []
+
+[dependencies]
+pgx = "0.1.21"
+pgx-macros = "0.1.21"
+
+[dev-dependencies]
+pgx-tests = "0.1.21"
+
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
