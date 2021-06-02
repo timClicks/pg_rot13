@@ -5,6 +5,9 @@ pg_module_magic!();
 /// Apply ROT13 to `text`.
 #[pg_extern]
 fn rot13(mut text: String) -> String {
+    // Safety: pgx has requested that Postgres allocate/free
+    //         a string on our behalf during the request. The
+    //         String is safe to mutate because we have ownership.
     unsafe {
         for byte in text.as_bytes_mut() {
             *byte = match *byte {
